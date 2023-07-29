@@ -12,4 +12,10 @@ public class PlayerPresenter : CreaturePresenter
     {
         _starterAssetsInputs = GetComponent<StarterAssetsInputs>();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out EnemyPresenter enemy))
+            Model.TakeDamage(enemy._modelDamage);
+    }
 }

@@ -10,15 +10,8 @@ namespace Archero.Model
 
         public IReadOnlyCollection<Creature> Targets { get; private set; }
 
-        public TargetSelector(Creature[] targets)
+        public void SetTargets(Creature[] targets)
         {
-            Targets = targets;
-        }
-
-        public TargetSelector(Creature target)
-        {
-            Creature[] targets = { target };
-
             Targets = targets;
         }
 

@@ -39,6 +39,11 @@ namespace Archero.Model
             _health.Died -= OnDied;
         }
 
+        public void SetTargets(Creature[] targets)
+        {
+            _targetSelector.SetTargets(targets);
+        }
+
         public void SetPosition(Vector3 position)
         {
             Position = position;
@@ -66,7 +71,7 @@ namespace Archero.Model
             if(_target == null)
                 return;
 
-            _weapon.Attack(_target);
+            _weapon.Attack();
         }
 
         private void OnDied()

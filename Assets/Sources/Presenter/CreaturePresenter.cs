@@ -3,24 +3,24 @@ using UnityEngine;
 
 public class CreaturePresenter : MonoBehaviour
 {
-    protected Creature _model;
     private float _timeNextAttack;
 
+    public Creature Model { get; private set; }
     public virtual bool IsMove { get; protected set; }
 
     private void Awake()
     {
-        IsMove = true;
+        IsMove = false;
     }
 
     private void FixedUpdate()
     {
-        _model.SetPosition(transform.position);
+        Model.SetPosition(transform.position);
 
         if (IsMove == false)
         {
-            if (_model.CanSetDirection())
-                transform.rotation = Quaternion.LookRotation(_model.Direction);
+            if (Model.CanSetDirection())
+                transform.rotation = Quaternion.LookRotation(Model.Direction);
         }
     }
 
@@ -33,40 +33,31 @@ public class CreaturePresenter : MonoBehaviour
 
         if (IsMove == false)
         {
-            _model.CanAttack();
-            _timeNextAttack = _model.SpeedAttack;
+            Model.CanAttack();
+            _timeNextAttack = Model.SpeedAttack;
         }
     }
 
     private void OnEnable()
     {
-        _model.Died += OnDied;
+        Model.Died += OnDied;
     }
 
     private void OnDisable()
     {
-        _model.Died -= OnDied;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent(out BulletPresenter bullet))
-            _model.TakeDamage(bullet._modelDamage);
-
-        if (other.TryGetComponent(out EnemyPresenter enemy))
-            _model.TakeDamage(enemy._modelDamage);
+        Model.Died -= OnDied;
     }
 
     public void Init(Creature creature)
     {
-        _model = creature;
-        _model.Enable();
+        Model = creature;
+        Model.Enable();
         enabled = true;
     }
 
     private void OnDied()
     {
-        _model.Disable();
+        Model.Disable();
         gameObject.SetActive(false);
     }
 }
