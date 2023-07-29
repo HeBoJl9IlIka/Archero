@@ -8,7 +8,10 @@ public class CreaturesRoot : MonoBehaviour
     [SerializeField] private CreaturePresenter _playerPresnter;
 
     private List<Creature> _creatures = new List<Creature>();
+    private List<Weapon> _weapons = new List<Weapon>();
     private Creature _player;
+
+    public Weapon[] Weapons => _weapons.ToArray(); 
 
     private void Awake()
     {
@@ -34,6 +37,7 @@ public class CreaturesRoot : MonoBehaviour
             Creature enemy = new Creature(health, weapon, targetSelector, 2);
             enemyPresenter.Init(enemy);
             _creatures.Add(enemy);
+            _weapons.Add(weapon);
         }
     }
 
@@ -44,5 +48,6 @@ public class CreaturesRoot : MonoBehaviour
         TargetSelector targetSelector = new TargetSelector();
         _player = new Creature(health, weapon, targetSelector, 1);
         _playerPresnter.Init(_player);
+        _weapons.Add(weapon);
     }
 }

@@ -1,9 +1,13 @@
+using System;
+
 namespace Archero.Model
 {
     public class Weapon
     {
         private Creature _creature;
         private int _damage;
+
+        public event Action<Creature, int> Shot;
 
         public Weapon(int damage)
         {
@@ -15,10 +19,9 @@ namespace Archero.Model
             _creature = creature;
         }
 
-        public void Attack(Creature creature)
+        public void Attack()
         {
-            int damage = _damage;
-            creature.TakeDamage(damage);
+            Shot?.Invoke(_creature, _damage);
         }
     }
 }
