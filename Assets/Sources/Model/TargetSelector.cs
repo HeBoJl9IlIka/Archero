@@ -1,18 +1,24 @@
-using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Archero.Model
 {
     public class TargetSelector
     {
         private Creature _creature;
+        private float _minDistance;
 
         public IReadOnlyCollection<Creature> Targets { get; private set; }
 
-        public event Action<IReadOnlyCollection<Creature>> SelectingTarget;
-
         public TargetSelector(Creature[] targets)
         {
+            Targets = targets;
+        }
+
+        public TargetSelector(Creature target)
+        {
+            Creature[] targets = { target };
+
             Targets = targets;
         }
 
@@ -21,19 +27,27 @@ namespace Archero.Model
             _creature = creature;
         }
 
-        public void SetTargets(Creature[] targets)
+        public Creature GetTarget()
         {
-            Targets = targets;
-        }
+            Creature target = null;
+            float distance;
+            _minDistance = 100;
 
-        public void SelectTarget()
-        {
-            SelectingTarget?.Invoke(Targets);
-        }
+            foreach (Creature creature in Targets)
+            {
+                if (creature.IsDead == false)
+                {
+                    distance = Vector3.Distance(creature.Position, _creature.Position);
 
-        public void SetTarget(Creature target)
-        {
-            _creature.SetTraget(target);
+                    if (distance < _minDistance)
+                    {
+                        target = creature;
+                        _minDistance = distance;
+                    }
+                }
+            }
+
+            return target;
         }
     }
 }

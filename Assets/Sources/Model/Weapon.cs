@@ -1,6 +1,6 @@
 namespace Archero.Model
 {
-    public abstract class Weapon
+    public class Weapon
     {
         private Creature _creature;
         private int _damage;
@@ -15,10 +15,10 @@ namespace Archero.Model
             _creature = creature;
         }
 
-        public void Attack(IDamageable damageable)
+        public void Attack(Creature creature)
         {
-            int damage = _damage + _creature.Damage;
-            damageable.TakeDamage(damage);
+            int damage = _damage;
+            creature.TakeDamage(damage);
         }
     }
 }

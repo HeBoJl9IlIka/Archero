@@ -1,30 +1,42 @@
+using System;
 using UnityEngine;
 
 namespace Archero.Model
 {
     public class Creature
     {
-        private readonly IHealable _healable;
-        private readonly IProtect _protect;
         private readonly Weapon _weapon;
         private readonly TargetSelector _targetSelector;
+        private readonly Health _health;
         private Creature _target;
 
-        public IDamageable Damageable { get; private set; }
-        public int Damage { get; private set; }
-        public Vector3 Position { get; private set; }
+        public bool IsDead => _health.IsDead;
 
-        public Creature(IDamageable damageable, IHealable healable, IProtect protect, Weapon weapon, int damage, TargetSelector targetSelector)
+        public float SpeedAttack { get; private set; }
+        public Vector3 Position { get; private set; }
+        public Vector3 Direction { get; private set; }
+
+        public event Action Died;
+
+        public Creature(Health health, Weapon weapon, TargetSelector targetSelector, float speedAttack)
         {
-            Damageable = damageable;
-            _healable = healable;
-            _protect = protect;
+            _health = health;
             _weapon = weapon;
-            Damage = damage;
             _targetSelector = targetSelector;
+            SpeedAttack = speedAttack;
 
             _weapon.Init(this);
             _targetSelector.Init(this);
+        }
+
+        public void Enable()
+        {
+            _health.Died += OnDied;
+        }
+
+        public void Disable()
+        {
+            _health.Died -= OnDied;
         }
 
         public void SetPosition(Vector3 position)
@@ -32,35 +44,34 @@ namespace Archero.Model
             Position = position;
         }
 
-        public void TakeDamage(TypeDamage typeDamage, int value)
+        public void TakeDamage(int value)
         {
-            int damage = _protect.AffectDamage(typeDamage, value);
-            Damageable.TakeDamage(damage);
+            _health.TakeDamage(value);
         }
 
-        public void TakeHeale(int value)
+        public bool CanSetDirection()
         {
-            _healable.TakeHeale(value);
+            _target = _targetSelector.GetTarget();
+
+            if (_target == null)
+                return false;
+
+            Direction = _target.Position - Position;
+
+            return _target != null;
         }
 
-        public void Attack()
+        public void CanAttack()
         {
-            _weapon.Attack(_target.Damageable);
+            if(_target == null)
+                return;
+
+            _weapon.Attack(_target);
         }
 
-        public void SetTargets(Creature[] targets)
+        private void OnDied()
         {
-            _targetSelector.SetTargets(targets);
-        }
-
-        public void SelectTarget()
-        {
-            _targetSelector?.SelectTarget();
-        }
-
-        public void SetTraget(Creature creature)
-        {
-            _target = creature;
+            Died?.Invoke();
         }
     }
 }
