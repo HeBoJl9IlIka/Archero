@@ -21,6 +21,9 @@ public class BulletPresenter : MonoBehaviour
                 gameObject.SetActive(false);
             }
         }
+
+        if(other.TryGetComponent(out WallPresenter wall))
+            gameObject.SetActive(false);
     }
 
     public void Init(Creature creature, Bullet model)
