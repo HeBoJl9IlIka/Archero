@@ -56,7 +56,7 @@ namespace Archero.Model
             _health.TakeDamage(value);
         }
 
-        public bool CanSetDirection()
+        public bool TrySetDirection()
         {
             _target = _targetSelector.GetTarget();
 

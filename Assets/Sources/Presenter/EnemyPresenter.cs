@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(IMovable))]
 public class EnemyPresenter : CreaturePresenter
 {
-    [SerializeField] private IMovable[] _movables;
+    private IMovable[] _movables;
 
     private void Awake()
     {

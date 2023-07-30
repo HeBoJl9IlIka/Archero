@@ -42,6 +42,9 @@ public class RandomMoveState : State, IMovable
             NeedTransit = true;
 
         if (NeedTransit)
-            _agent.ResetPath();
+        {
+            if (gameObject.activeSelf)
+                _agent.ResetPath();
+        }
     }
 }
