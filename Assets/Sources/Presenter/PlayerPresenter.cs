@@ -10,6 +10,6 @@ public class PlayerPresenter : CreaturePresenter
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out EnemyPresenter enemy))
-            Model.TakeDamage(enemy._modelDamage);
+            Model.TakeDamage(enemy.Model.Damage);
     }
 }

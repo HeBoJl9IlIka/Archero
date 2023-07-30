@@ -1,7 +1,19 @@
 using Archero.Model;
 using UnityEngine;
 
-public class EnemyPresenter : MonoBehaviour
+[RequireComponent(typeof(IMovable))]
+public class EnemyPresenter : CreaturePresenter
 {
-    public int _modelDamage { get; private set; } //get from model
+    [SerializeField] private IMovable[] _movables;
+
+    private void Awake()
+    {
+        _movables = GetComponentsInChildren<IMovable>();
+    }
+
+    private void Update()
+    {
+        foreach (IMovable movable in _movables)
+            IsMove = movable.IsMove;
+    }
 }

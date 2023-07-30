@@ -10,7 +10,7 @@ public class CreaturePresenter : MonoBehaviour
 
     private void Awake()
     {
-        IsMove = false;
+        IsMove = true;
     }
 
     private void FixedUpdate()
@@ -22,10 +22,7 @@ public class CreaturePresenter : MonoBehaviour
             if (Model.CanSetDirection())
                 transform.rotation = Quaternion.LookRotation(Model.Direction);
         }
-    }
 
-    private void Update()
-    {
         _timeNextAttack -= Time.deltaTime;
 
         if (_timeNextAttack >= 0)

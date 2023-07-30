@@ -13,17 +13,19 @@ namespace Archero.Model
         public bool IsDead => _health.IsDead;
 
         public float SpeedAttack { get; private set; }
+        public int Damage { get; private set; }
         public Vector3 Position { get; private set; }
         public Vector3 Direction { get; private set; }
 
         public event Action Died;
 
-        public Creature(Health health, Weapon weapon, TargetSelector targetSelector, float speedAttack)
+        public Creature(Health health, Weapon weapon, TargetSelector targetSelector, float speedAttack, int damage)
         {
             _health = health;
             _weapon = weapon;
             _targetSelector = targetSelector;
             SpeedAttack = speedAttack;
+            Damage = damage;
 
             _weapon.Init(this);
             _targetSelector.Init(this);
