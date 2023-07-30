@@ -7,11 +7,12 @@ public class CreaturesRoot : MonoBehaviour
     [SerializeField] private CreaturePresenter[] _enemiesPresenter;
     [SerializeField] private CreaturePresenter _playerPresnter;
 
-    private List<Creature> _creatures = new List<Creature>();
+    private List<Creature> _enemies = new List<Creature>();
     private List<Weapon> _weapons = new List<Weapon>();
     private Creature _player;
 
     public Weapon[] Weapons => _weapons.ToArray(); 
+    public Creature[] Enemies => _enemies.ToArray();
 
     private void Awake()
     {
@@ -20,10 +21,10 @@ public class CreaturesRoot : MonoBehaviour
 
         Creature[] creatures = { _player };
 
-        foreach (Creature creature in _creatures)
+        foreach (Creature creature in _enemies)
             creature.SetTargets(creatures);
 
-        _player.SetTargets(_creatures.ToArray());
+        _player.SetTargets(_enemies.ToArray());
     }
 
     private void InitEnemies()
@@ -34,9 +35,9 @@ public class CreaturesRoot : MonoBehaviour
             Health health = new Health(100);
             Weapon weapon = new Weapon(50);
             TargetSelector targetSelector = new TargetSelector();
-            Creature enemy = new Creature(health, weapon, targetSelector, 2);
+            Creature enemy = new Creature(health, weapon, targetSelector, 2, 20);
             enemyPresenter.Init(enemy);
-            _creatures.Add(enemy);
+            _enemies.Add(enemy);
             _weapons.Add(weapon);
         }
     }
@@ -46,7 +47,7 @@ public class CreaturesRoot : MonoBehaviour
         Health health = new Health(300);
         Weapon weapon = new Weapon(50);
         TargetSelector targetSelector = new TargetSelector();
-        _player = new Creature(health, weapon, targetSelector, 1);
+        _player = new Creature(health, weapon, targetSelector, 1, 20);
         _playerPresnter.Init(_player);
         _weapons.Add(weapon);
     }
