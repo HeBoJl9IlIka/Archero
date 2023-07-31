@@ -17,7 +17,6 @@ public class LevelRoot : MonoBehaviour
     private List<CreaturePresenter> _enemiesPresnter = new List<CreaturePresenter>();
     private CreaturePresenter _playerPresenter;
     private Wallet _wallet = new Wallet();
-    private float _time = Config.DelayStart;
 
     private void Awake()
     {

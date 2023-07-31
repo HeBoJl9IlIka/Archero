@@ -15,14 +15,14 @@ GameObject:
   - component: {fileID: 7663293332676661641}
   - component: {fileID: 7663293332676661644}
   - component: {fileID: 7663293332676661687}
-  - component: {fileID: 7663293332676661642}
-  - component: {fileID: 7663293332676661685}
+  - component: {fileID: -2823523261171484834}
+  - component: {fileID: -6561682920377488200}
   - component: {fileID: 7663293332676661643}
   - component: {fileID: 7663293332676661684}
   - component: {fileID: 7663293332676661686}
   - component: {fileID: 7663293332676661680}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7663293332676661635}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -111,7 +111,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7663293332676661635}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -123,7 +123,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: 0.5
+  m_BaseOffset: 3
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &7663293332676661644
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scripts:
   - {fileID: 7663293332676661687}
-  _type: 0
+  _type: 1
 --- !u!114 &7663293332676661687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a359f5aff988e3c41bbbbe914b3170c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _firstState: {fileID: 7663293332676661642}
---- !u!114 &7663293332676661642
+  _firstState: {fileID: -2823523261171484834}
+--- !u!114 &-2823523261171484834
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,13 +163,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7663293332676661635}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9108e6e9ff4a5a048969b1c3a02f353a, type: 3}
+  m_Script: {fileID: 11500000, guid: fc96b85b7807f5940bdcc9f602058018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _transitions:
-  - {fileID: 7663293332676661685}
-  _maxRadius: 3
---- !u!114 &7663293332676661685
+  - {fileID: -6561682920377488200}
+  _maxRadius: 1
+  _minFlyPosition: {fileID: 0}
+  _maxFlyPosition: {fileID: 0}
+--- !u!114 &-6561682920377488200
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0c486a7cb48b1240a9820916eb5b0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentState: {fileID: 7663293332676661642}
+  _currentState: {fileID: -2823523261171484834}
   _targetState: {fileID: 7663293332676661643}
 --- !u!114 &7663293332676661643
 MonoBehaviour:
@@ -197,7 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transitions:
   - {fileID: 7663293332676661684}
-  _duration: 3
+  _duration: 1
 --- !u!114 &7663293332676661684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentState: {fileID: 7663293332676661643}
-  _targetState: {fileID: 7663293332676661642}
+  _targetState: {fileID: -2823523261171484834}
 --- !u!54 &7663293332676661686
 Rigidbody:
   m_ObjectHideFlags: 0
